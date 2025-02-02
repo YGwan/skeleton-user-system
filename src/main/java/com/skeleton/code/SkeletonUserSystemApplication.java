@@ -1,4 +1,4 @@
-package com.skeletonusersystem;
+package com.skeleton.code;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,5 +9,4 @@ public class SkeletonUserSystemApplication {
     public static void main(String[] args) {
         SpringApplication.run(SkeletonUserSystemApplication.class, args);
     }
-
 }
