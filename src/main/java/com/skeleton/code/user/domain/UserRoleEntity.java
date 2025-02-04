@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -29,5 +30,11 @@ public class UserRoleEntity {
     public UserRoleEntity(Long userId, Set<RoleType> roles) {
         this.userId = userId;
         this.roles = roles;
+    }
+
+    public List<String> roleNames() {
+        return roles.stream()
+            .map(Enum::name)
+            .toList();
     }
 }

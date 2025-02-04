@@ -22,16 +22,12 @@ public class UserEntity extends BaseEntity {
 
     private String email;
 
-    private boolean isAdmin = false;
-
     private boolean isDeleted = false;
 
-    public UserEntity(String username, String password,
-                      String email, boolean isAdmin, boolean isDeleted) {
+    public UserEntity(String username, String password, String email, boolean isDeleted) {
         this.username = username;
         this.password = password;
         this.email = email;
-        this.isAdmin = isAdmin;
         this.isDeleted = isDeleted;
     }
 }
