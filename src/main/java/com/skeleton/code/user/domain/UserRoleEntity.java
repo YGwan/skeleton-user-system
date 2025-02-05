@@ -1,20 +1,20 @@
 package com.skeleton.code.user.domain;
 
 import com.skeleton.code.common.domain.constants.RoleType;
-import com.skeleton.code.user.domain.converter.UserRoleConverter;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(name = "user_role")
+@Table(
+    name = "user_roles",
+    uniqueConstraints = {
+        @UniqueConstraint(name = "UK_role_user_id_role", columnNames = {"user_id", "role"})
+    }
+)
 public class UserRoleEntity {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,17 +24,12 @@ public class UserRoleEntity {
     @Column(nullable = false)
     private Long userId;
 
-    @Convert(converter = UserRoleConverter.class)
-    private Set<RoleType> roles = new HashSet<>();
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private RoleType role;
 
-    public UserRoleEntity(Long userId, Set<RoleType> roles) {
+    public UserRoleEntity(Long userId, RoleType role) {
         this.userId = userId;
-        this.roles = roles;
-    }
-
-    public List<String> roleNames() {
-        return roles.stream()
-            .map(Enum::name)
-            .toList();
+        this.role = role;
     }
 }

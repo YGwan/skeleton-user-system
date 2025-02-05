@@ -4,6 +4,7 @@ import com.skeleton.code.auth.dto.CustomUserDetails;
 import com.skeleton.code.auth.exception.AuthErrorCode;
 import com.skeleton.code.auth.exception.AuthException;
 import com.skeleton.code.user.domain.UserRepository;
+import com.skeleton.code.user.domain.UserRoleEntity;
 import com.skeleton.code.user.domain.UserRoleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -28,10 +29,10 @@ public class CustomUserDetailsService implements UserDetailsService {
         }
 
         var roles = userRoleRepository.findAllByUserId(user.getId()).stream()
-            .flatMap(role -> role.roleNames().stream())
+            .map(UserRoleEntity::getRole)
+            .map(Enum::name)
             .toList();
 
-        System.out.println(roles);
         return CustomUserDetails.from(user, roles);
     }
 }
