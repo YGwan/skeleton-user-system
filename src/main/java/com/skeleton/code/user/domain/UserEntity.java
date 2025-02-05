@@ -16,18 +16,18 @@ public class UserEntity extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String username;
+    private String email;
 
     private String password;
 
-    private String email;
+    private String name;
 
     private boolean isDeleted = false;
 
-    public UserEntity(String username, String password, String email, boolean isDeleted) {
-        this.username = username;
-        this.password = password;
+    public UserEntity(String email, String password, String name, boolean isDeleted) {
         this.email = email;
+        this.password = password;
+        this.name = name;
         this.isDeleted = isDeleted;
     }
 }

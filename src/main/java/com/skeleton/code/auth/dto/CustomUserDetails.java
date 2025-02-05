@@ -11,14 +11,14 @@ import java.util.Collections;
 import java.util.List;
 
 public record CustomUserDetails(
-    String username,
+    String email,
     String password,
     List<String> roleNames
 ) implements UserDetails {
 
     public static CustomUserDetails from(UserEntity user, List<String> roleNames) {
         return new CustomUserDetails(
-            user.getUsername(),
+            user.getEmail(),
             user.getPassword(),
             roleNames
         );
@@ -42,7 +42,7 @@ public record CustomUserDetails(
 
     @Override
     public String getUsername() {
-        return username;
+        return email;
     }
 
     @Override

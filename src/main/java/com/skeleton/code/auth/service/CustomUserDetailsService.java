@@ -20,8 +20,8 @@ public class CustomUserDetailsService implements UserDetailsService {
     private final UserRoleRepository userRoleRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        var user = userRepository.findByUsername(username)
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        var user = userRepository.findByEmail(email)
             .orElseThrow(() -> new AuthException(AuthErrorCode.USER_NOT_FOUND));
 
         if (user.isDeleted()) {
