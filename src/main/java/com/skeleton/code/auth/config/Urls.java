@@ -1,8 +1,9 @@
 package com.skeleton.code.auth.config;
 
-public class PermitUrl {
+public class Urls {
 
     public static final String[] PERMIT_URLS = new String[]{
+        "/api/users/signup"
     };
 
     public static final String[] CONTENT_URLS = new String[]{

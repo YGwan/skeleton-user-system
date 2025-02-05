@@ -12,8 +12,8 @@ import org.springframework.web.cors.CorsConfigurationSource;
 
 import java.util.Collections;
 
-import static com.skeleton.code.auth.config.PermitUrl.CONTENT_URLS;
-import static com.skeleton.code.auth.config.PermitUrl.PERMIT_URLS;
+import static com.skeleton.code.auth.config.Urls.CONTENT_URLS;
+import static com.skeleton.code.auth.config.Urls.PERMIT_URLS;
 import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
