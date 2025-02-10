@@ -5,7 +5,9 @@ import com.skeleton.code.user.dto.request.SignupRequest;
 import com.skeleton.code.user.dto.response.SignupResponse;
 import com.skeleton.code.user.exception.UserException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import static com.skeleton.code.user.exception.UserErrorCode.EMAIL_ALREADY_EXISTS;
 
@@ -14,7 +16,9 @@ import static com.skeleton.code.user.exception.UserErrorCode.EMAIL_ALREADY_EXIST
 public class UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
+    @Transactional
     public SignupResponse signup(SignupRequest request) {
         if (userRepository.existsByEmail(request.email())) {
             throw new UserException(EMAIL_ALREADY_EXISTS);
@@ -22,6 +26,7 @@ public class UserService {
 
         var entity = request.toEntity();
         userRepository.save(entity);
+        entity.encryptPassword(request.password(), passwordEncoder);
         return SignupResponse.of(entity);
     }
 }
