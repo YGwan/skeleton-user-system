@@ -16,6 +16,13 @@ import static org.springframework.http.HttpStatus.FORBIDDEN;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+    @ExceptionHandler(BusinessException.class)
+    ResponseEntity<String> handleBusinessException(BusinessException e) {
+        var errorCode = e.getHttpErrorCode();
+        return ResponseEntity.status(errorCode.getHttpStatus())
+            .body(errorCode.getMessage());
+    }
+
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<String> accessDenied(Exception e) {
         return ResponseEntity.status(FORBIDDEN).body("Access denied");
