@@ -1,4 +1,4 @@
-package com.skeleton.code.auth.authenticationProvider;
+package com.skeleton.code.auth.authenticationManager;
 
 import com.skeleton.code.user.domain.UserEntity;
 import org.springframework.security.core.GrantedAuthority;

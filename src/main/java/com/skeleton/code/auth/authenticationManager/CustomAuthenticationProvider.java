@@ -1,4 +1,4 @@
-package com.skeleton.code.auth.authenticationProvider;
+package com.skeleton.code.auth.authenticationManager;
 
 import com.skeleton.code.auth.exception.AuthException;
 import lombok.RequiredArgsConstructor;
@@ -8,12 +8,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
 
 import static com.skeleton.code.auth.exception.AuthErrorCode.ACCESS_DENIED;
 
 @RequiredArgsConstructor
-@Component
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     private final UserDetailsService userDetailsService;
@@ -33,6 +31,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public boolean supports(Class<?> authentication) {
-        return false;
+        return UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication);
     }
 }
