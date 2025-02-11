@@ -1,6 +1,5 @@
-package com.skeleton.code.auth.service;
+package com.skeleton.code.auth.authenticationProvider;
 
-import com.skeleton.code.auth.dto.CustomUserDetails;
 import com.skeleton.code.auth.exception.AuthException;
 import com.skeleton.code.user.domain.UserRepository;
 import com.skeleton.code.user.domain.UserRoleEntity;

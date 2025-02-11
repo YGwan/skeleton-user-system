@@ -1,5 +1,4 @@
-package com.skeleton.code.auth.dto;
-
+package com.skeleton.code.auth.authenticationProvider;
 
 import com.skeleton.code.user.domain.UserEntity;
 import org.springframework.security.core.GrantedAuthority;
