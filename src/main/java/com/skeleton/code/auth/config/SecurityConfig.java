@@ -34,6 +34,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
+            // .requiresChannel(rcc -> rcc.anyRequest().requiresSecure()) # Only HTTPS
             .csrf(AbstractHttpConfigurer::disable)
             .cors(corsConfigurer -> corsConfigurer.configurationSource(corsConfigurationSource()))
             .authorizeHttpRequests((auth) -> auth
