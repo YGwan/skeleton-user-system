@@ -10,7 +10,10 @@ import org.springframework.http.HttpStatus;
 public enum AuthErrorCode implements HttpErrorCode {
     USER_NOT_FOUND(HttpStatus.UNAUTHORIZED, "user not exists"),
     ACCESS_DENIED(HttpStatus.UNAUTHORIZED, "access denied"),
+    TOKEN_INVALID(HttpStatus.UNAUTHORIZED, "token invalid"),
+    REFRESH_TOKEN_INVALID(HttpStatus.UNAUTHORIZED, "refresh token invalid"),
     ;
+
     private final HttpStatus httpStatus;
     private final String message;
 
