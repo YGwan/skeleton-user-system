@@ -27,10 +27,10 @@ public class UserEntity extends BaseEntity {
 
     private boolean isDeleted = false;
 
-    public UserEntity(String username, String email, String password, String name) {
+    public UserEntity(String username, String password, String email, String name) {
         this.username = username;
-        this.email = email;
         this.password = password;
+        this.email = email;
         this.name = name;
     }
 
