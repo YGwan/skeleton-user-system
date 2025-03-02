@@ -20,6 +20,7 @@ public class JwtUtils {
     private static String createToken(String secretKey, Map<String, Object> claims, Date issuedAt, Date expiredAt) {
         return Jwts.builder()
             .addClaims(claims)
+            .setIssuer("skeleton")
             .setIssuedAt(issuedAt)
             .setExpiration(expiredAt)
             .signWith(SignatureAlgorithm.HS256, secretKey)
