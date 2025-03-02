@@ -9,7 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static com.skeleton.code.user.exception.UserErrorCode.EMAIL_ALREADY_EXISTS;
+import static com.skeleton.code.user.exception.UserErrorCode.USERNAME_ALREADY_EXISTS;
 
 @RequiredArgsConstructor
 @Service
@@ -20,8 +20,8 @@ public class UserService {
 
     @Transactional
     public SignupResponse signup(SignupRequest request) {
-        if (userRepository.existsByEmail(request.email())) {
-            throw new UserException(EMAIL_ALREADY_EXISTS);
+        if (userRepository.existsByUsername(request.username())) {
+            throw new UserException(USERNAME_ALREADY_EXISTS);
         }
 
         var entity = request.toEntity();

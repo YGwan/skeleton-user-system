@@ -17,15 +17,18 @@ public class UserEntity extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String email;
+    private String username;
 
     private String password;
+
+    private String email;
 
     private String name;
 
     private boolean isDeleted = false;
 
-    public UserEntity(String email, String password, String name) {
+    public UserEntity(String username, String email, String password, String name) {
+        this.username = username;
         this.email = email;
         this.password = password;
         this.name = name;
