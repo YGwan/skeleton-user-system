@@ -7,7 +7,7 @@ public record UserResponse(
     String email,
     String name
 ) {
-    public static  UserResponse of(UserEntity entity) {
+    public static UserResponse of(UserEntity entity) {
         return new UserResponse(
             entity.getUsername(),
             entity.getEmail(),

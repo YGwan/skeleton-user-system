@@ -22,14 +22,12 @@ import static com.skeleton.code.auth.caches.Caches.*;
 @Service
 public class AuthService {
 
-    @Value("${jwt.secret.key}")
-    private String secretKey;
-
     private static final Integer ACCESS_TOKEN_EXPIRED_TIME = 30 * 60 * 1000;
     private static final Integer REFRESH_TOKEN_EXPIRED_TIME = 14 * 24 * 60 * 60 * 1000;
-
     private final UserRepository userRepository;
     private final UserRoleRepository userRoleRepository;
+    @Value("${jwt.secret.key}")
+    private String secretKey;
 
     public Tokens createToken(Authentication authentication) {
         var user = getUserByUsername(authentication.getName());

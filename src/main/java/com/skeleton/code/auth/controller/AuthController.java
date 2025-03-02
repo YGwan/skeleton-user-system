@@ -5,7 +5,6 @@ import com.skeleton.code.auth.dto.ReissueRequest;
 import com.skeleton.code.auth.dto.Tokens;
 import com.skeleton.code.auth.service.AuthService;
 import com.skeleton.code.auth.utils.TokenUtils;
-import com.skeleton.code.user.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
