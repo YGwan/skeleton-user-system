@@ -4,6 +4,7 @@ import com.skeleton.code.auth.authenticationManager.CustomAuthenticationProvider
 import com.skeleton.code.auth.authenticationManager.CustomUserDetailsService;
 import com.skeleton.code.auth.exception.CustomAccessDeniedHandler;
 import com.skeleton.code.auth.exception.CustomAuthenticationEntryPoint;
+import com.skeleton.code.auth.filter.JWTTokenValidateFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,6 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
@@ -25,7 +27,6 @@ import java.util.Collections;
 
 import static com.skeleton.code.auth.config.Urls.CONTENT_URLS;
 import static com.skeleton.code.auth.config.Urls.PERMIT_URLS;
-import static org.springframework.security.config.Customizer.withDefaults;
 
 @RequiredArgsConstructor
 @Configuration
@@ -33,6 +34,7 @@ public class SecurityConfig {
 
     private static final String ALLOWED_ORIGIN = "*";
     private final CustomUserDetailsService userDetailsService;
+    private final JWTTokenValidateFilter jwtTokenValidateFilter;
     private final PasswordEncoder passwordEncoder;
 
     @Bean
@@ -46,15 +48,14 @@ public class SecurityConfig {
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
             )
-            .sessionManagement((session) -> session
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            )
+            .addFilterBefore(jwtTokenValidateFilter, BasicAuthenticationFilter.class)
             .exceptionHandling(ehc -> ehc
                 .authenticationEntryPoint(customAuthenticationEntryPoint())
                 .accessDeniedHandler(customAccessDeniedHandler())
+            )
+            .sessionManagement((session) -> session
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             );
-
-        http.formLogin(withDefaults()); //FIXME
 
         return http.build();
     }
