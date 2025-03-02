@@ -1,8 +1,11 @@
 package com.skeleton.code.user.service;
 
+import com.skeleton.code.user.domain.UserEntity;
 import com.skeleton.code.user.domain.UserRepository;
 import com.skeleton.code.user.dto.request.SignupRequest;
 import com.skeleton.code.user.dto.response.SignupResponse;
+import com.skeleton.code.user.dto.response.UserResponse;
+import com.skeleton.code.user.exception.UserErrorCode;
 import com.skeleton.code.user.exception.UserException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -28,5 +31,15 @@ public class UserService {
         userRepository.save(entity);
         entity.encryptPassword(request.password(), passwordEncoder);
         return SignupResponse.of(entity);
+    }
+
+    public UserResponse findByUsername(String username) {
+        var user = getByUsername(username);
+        return UserResponse.of(user);
+    }
+
+    private UserEntity getByUsername(String username) {
+        return userRepository.findByUsernameAndIsDeletedFalse(username)
+            .orElseThrow(() -> new UserException(UserErrorCode.USER_NOT_FOUND));
     }
 }
