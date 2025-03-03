@@ -1,6 +1,8 @@
 # skeleton user system used by Spring security
 
-## ● 스프링 시큐리티 요청 처리 흐름
+<br>
+
+## 스프링 시큐리티 요청 처리 흐름
 
 1. 사용자가 자격증명 없이 보안 페이지에 처음으로 접근하려고 시도한다.
 2. AuthorizationFilter, AbstractAuthenticationProcessingFilter, DefaultLoginPageGeneratingFilter 등과 같은 필터가 작동하여 최종 사용자에게
@@ -17,7 +19,7 @@
 
 <br>
 
-## ● 스프링 시큐리티에서 제공하는 여러 필터들 정의
+## 스프링 시큐리티에서 제공하는 여러 필터들 정의
 
 - [스프링 시큐리티에서 제공하는 여러 필터들 정의](docs/filters-provided-by-spring-security.md)
 - 모든 필터들을 다 사용하는 것은 아니다.
@@ -25,7 +27,7 @@
 
 <br>
 
-## ●  스프링 시큐리티 사용 시 알아두면 좋은 개념들
+## 스프링 시큐리티 사용 시 알아두면 좋은 개념들
 
 ### SecurityConetxtHolder
 
@@ -121,9 +123,9 @@ $2a$10$XvVw1HyOzzKf0Jfbi3PoLOsm7l7.P.tVxovfFP7pkjJXYp3hCmPqS
 
 <br>
 
-### Spring Security 권한 처리
+## Spring Security 권한 처리
 
-1. URL 기반 권한 처리 (HttpSecurity)
+### 1. URL 기반 권한 처리 (HttpSecurity)
    - 특정 URL 패턴에 대한 접근 권한 설정
    ``` java
    @Bean
@@ -145,7 +147,9 @@ $2a$10$XvVw1HyOzzKf0Jfbi3PoLOsm7l7.P.tVxovfFP7pkjJXYp3hCmPqS
    - hasAuthority('PERMISSION_NAME') : 특정 권한(Permission) 보유자만 가능
    - denyAll()	: 누구도 접근할 수 없음
 
-2. 메서드 기반 권한 처리 (@PreAuthorize, @PostAuthorize)
+<br>
+
+### 2. 메서드 기반 권한 처리 (@PreAuthorize, @PostAuthorize)
    - 메서드 단위에서 사용자의 역할(Role)이나 특정 조건을 검사하여 실행 제한
    ``` java
    @PreAuthorize("hasRole('ADMIN')")
@@ -161,7 +165,9 @@ $2a$10$XvVw1HyOzzKf0Jfbi3PoLOsm7l7.P.tVxovfFP7pkjJXYp3hCmPqS
    - @PreAuthorize (메서드 실행 전에 권한 검사)
    - @PostAuthorize (메서드 실행 후 반환값을 확인하여 권한 검사)
 
-3. 필터 기반 권한 처리 (Security Filter)
+<br>
+
+### 3. 필터 기반 권한 처리 (Security Filter)
    - Spring Security는 요청을 처리하는 필터 체인을 가지고 있어, 특정 필터에서 권한을 직접 체크
    - (ex) jwtAuthenticatedFilter, UsernamePasswordAuthenticationFilter
 
@@ -171,7 +177,7 @@ $2a$10$XvVw1HyOzzKf0Jfbi3PoLOsm7l7.P.tVxovfFP7pkjJXYp3hCmPqS
 - [OAuth 정리](docs/oauth2.0-spring-security.md)
 - 예시 코드
 
-1. 의존성 추가
+### 1. 의존성 추가
     ``` java
     // OAuth2 Cilent
     implementation 'org.springframework.security:spring-security-oauth2-client'
@@ -180,12 +186,16 @@ $2a$10$XvVw1HyOzzKf0Jfbi3PoLOsm7l7.P.tVxovfFP7pkjJXYp3hCmPqS
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
     ```
 
-2. 제공할 소셜 로그인 측 설정
+<br>
+
+### 2. 제공할 소셜 로그인 측 설정
     - Client ID 발급
     - Client Secret ID 확인
     - redirect URL 지정 등
 
-3. Config 파일 생성
+<br>
+
+### 3. Config 파일 생성
 ``` java
 @Configuration
 public class SecurityConfig {
@@ -220,7 +230,6 @@ public class SecurityConfig {
 ```
 - 기본적으로 google, github, facebook, okta는 ClientRegistration을 제공한다. (spring security 측에서 제공해줌)
 - kakao나 다른 것을 추가하려면 별도의 ClientRegistration을 만들어야 한다.
-- ex)
 ``` java
 
     @Bean
@@ -247,7 +256,9 @@ public class SecurityConfig {
             
 ```
 
-4. Config 파일 대신 환경 변수 파일로 처리하는 방법
+<br>
+
+### 4. Config 파일 대신 환경 변수 파일로 처리하는 방법
 ``` java
 spring.security.oauth2.client.registration.google.client-id=${GOOGLE_CLIENT_ID}
 spring.security.oauth2.client.registration.google.client-secret=${GOOGLE_CLIENT_SECRET}
